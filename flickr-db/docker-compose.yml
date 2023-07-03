@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  # flickr:
+  #   build: .
+  #   image: flickr
+  #   environment:
+  #     - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+  #   ports:
+  #     - '8085:8085'
+  #   depends_on:
+  #     - mongodb
+  #   volumes:
+  #     - .:/src
+  #   networks:
+  #     - node-network
+  #
+  # flickr-client:
+  #   build: .
+  #   image: flickr
+  #   environment:
+  #     - MONGODB_URL=mongodb://mongodb:27017/node-boilerplate
+  #   ports:
+  #     - '8085:8085'
+  #   depends_on:
+  #     - mongodb
+  #   volumes:
+  #     - .:/src
+  #   networks:
+  #     - node-network
+
+  mongodb:
+    container_name: flickr-db
+    image: mongo:latest
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=flickr
+      - MONGO_INITDB_ROOT_PASSWORD=flickr
+      - MONGO_INITDB_DATABASE=flickr
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata6:/data/db
+    networks:
+      - node-network
+
+volumes:
+  dbdata6:
+
+networks:
+  node-network:
+    driver: bridge
