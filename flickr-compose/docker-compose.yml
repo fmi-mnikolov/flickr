@@ -44,8 +44,33 @@ services:
     networks:
       - node-network
 
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    volumes:
+      - redis_volume_data:/data
+    ports:
+      - 6379:6379
+    networks:
+      - node-network
+
+  redis_insight:
+    image: redislabs/redisinsight:latest
+    container_name: redis_insight
+    restart: always
+    ports:
+      - 8001:8001
+    volumes:
+      - redis_insight_volume_data:/db
+    networks:
+      - node-network
+
 volumes:
   dbdata6:
+  redis_volume_data:
+  redis_insight_volume_data:
+
 
 networks:
   node-network:
